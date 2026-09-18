@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user["password"])) {
 
             $_SESSION["user_name"] = $user["name"];
+            $_SESSION["user_id"] = (int) $user["id"];
 
             header("Location: index.php");
             exit();
@@ -50,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <title>Login - EventHub</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -133,6 +134,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </a>
 
         </p>
+
+        <a class="admin-login-link" href="admin_login.php">
+            Admin Login
+        </a>
 
     </form>
 

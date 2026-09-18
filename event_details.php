@@ -10,10 +10,15 @@ if (!isset($_GET["id"])) {
 
 $id = intval($_GET["id"]);
 
-$result = mysqli_query(
+$stmt = mysqli_prepare(
     $conn,
-    "SELECT * FROM events WHERE id = $id"
+    "SELECT * FROM events WHERE id = ?"
 );
+
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
 
 if (mysqli_num_rows($result) == 0) {
     echo "Event not found.";
@@ -64,6 +69,10 @@ $event = mysqli_fetch_assoc($result);
             <span class="username">
                 Welcome, <?php echo htmlspecialchars($_SESSION["user_name"]); ?>
             </span>
+
+            <a href="my_registrations.php" class="my-registrations-link">
+                My Registrations
+            </a>
 
             <a href="logout.php" class="register">Logout</a>
 
@@ -131,9 +140,17 @@ $event = mysqli_fetch_assoc($result);
                 <?php echo htmlspecialchars($event["description"]); ?>
             </p>
 
-            <a href="register_event.php?id=<?php echo $event['id']; ?>" class="btn">
-                Register for Event
-            </a>
+            <?php if ((int) $event["remaining_seats"] > 0) { ?>
+
+                <a href="register_event.php?id=<?php echo (int) $event['id']; ?>" class="btn">
+                    Register for Event
+                </a>
+
+            <?php } else { ?>
+
+                <span class="btn sold-out">Sold Out</span>
+
+            <?php } ?>
 
         </div>
 

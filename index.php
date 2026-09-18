@@ -1,5 +1,25 @@
 <?php
 session_start();
+
+include "db.php";
+
+$featured_stmt = mysqli_prepare(
+    $conn,
+    "SELECT id,
+            event_name,
+            category,
+            event_date,
+            location,
+            image,
+            remaining_seats
+     FROM events
+     WHERE event_date >= CURDATE()
+     ORDER BY event_date ASC
+     LIMIT 3"
+);
+
+mysqli_stmt_execute($featured_stmt);
+$featured_result = mysqli_stmt_get_result($featured_stmt);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +27,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -26,11 +46,17 @@ session_start();
         <li><a href="index.php#contact">Contact</a></li>
     </ul>
 
+<div class="nav-actions">
+
 <?php if (isset($_SESSION["user_name"])) { ?>
 
     <span class="username">
         Welcome, <?php echo htmlspecialchars($_SESSION["user_name"]); ?>
     </span>
+
+    <a href="my_registrations.php" class="my-registrations-link">
+        My Registrations
+    </a>
 
     <a href="logout.php" class="register">Logout</a>
 
@@ -41,6 +67,7 @@ session_start();
 
 <?php } ?>
 
+</div>
 
 </nav>
 <!-- ================= HERO ================= -->
@@ -72,6 +99,71 @@ session_start();
     </div>
 
 </section>
+
+<!-- ================= FEATURED EVENTS ================= -->
+
+<section class="featured-events" id="featured-events">
+
+    <div class="section-title">
+        <p>FEATURED</p>
+        <h2>Featured Events</h2>
+        <span>Discover the next events happening near you</span>
+    </div>
+
+    <div class="featured-event-container">
+
+        <?php while ($event = mysqli_fetch_assoc($featured_result)) { ?>
+
+            <article class="featured-event-card">
+
+                <img
+                    src="images/<?php echo htmlspecialchars($event["image"]); ?>"
+                    alt="<?php echo htmlspecialchars($event["event_name"]); ?>"
+                >
+
+                <div class="featured-event-content">
+
+                    <span class="category">
+                        <?php echo htmlspecialchars($event["category"]); ?>
+                    </span>
+
+                    <h3>
+                        <?php echo htmlspecialchars($event["event_name"]); ?>
+                    </h3>
+
+                    <p>
+                        📅 <?php echo date("d M Y", strtotime($event["event_date"])); ?>
+                    </p>
+
+                    <p>
+                        📍 <?php echo htmlspecialchars($event["location"]); ?>
+                    </p>
+
+                    <?php if ((int) $event["remaining_seats"] > 0) { ?>
+                        <p>
+                            🪑 <?php echo (int) $event["remaining_seats"]; ?> seats remaining
+                        </p>
+                    <?php } else { ?>
+                        <p class="featured-sold-out">Sold Out</p>
+                    <?php } ?>
+
+                    <a
+                        href="event_details.php?id=<?php echo (int) $event["id"]; ?>"
+                        class="btn"
+                    >
+                        View Details
+                    </a>
+
+                </div>
+
+            </article>
+
+        <?php } ?>
+
+    </div>
+
+</section>
+
 <!-- ================= EVENTS ================= -->
 
 <section class="events" id="events">

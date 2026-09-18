@@ -54,6 +54,7 @@ body {
     font-family: Arial, sans-serif;
     color: #172554;
     background: #ffffff;
+    overflow-x: hidden;
 }
 
 
@@ -101,6 +102,15 @@ footer span {
 .nav-buttons {
     display: flex;
     gap: 10px;
+}
+
+.nav-actions,
+.navbar > div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .login,
@@ -227,12 +237,13 @@ footer span {
 
 .event-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 25px;
     align-items: stretch;
 }
 
 .event-card {
+    min-width: 0;
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -319,6 +330,74 @@ footer span {
     color: white;
     text-decoration: none;
     border-radius: 6px;
+}
+
+/* ================= FEATURED EVENTS ================= */
+
+.featured-events {
+    padding: 80px 8%;
+    background: #ffffff;
+}
+
+.featured-event-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.featured-event-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+    transition: transform .3s, box-shadow .3s;
+}
+
+.featured-event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 26px #cbd5e1;
+}
+
+.featured-event-card > img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.featured-event-content {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.featured-event-content h3 {
+    overflow-wrap: anywhere;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.featured-event-content p {
+    margin: 8px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.featured-event-content .btn {
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+}
+
+.featured-event-content .featured-sold-out {
+    color: #b91c1c;
+    font-weight: bold;
 }
 
 
@@ -539,8 +618,22 @@ footer {
 
 @media (max-width: 1000px) {
 
+    .navbar {
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
     .event-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .featured-event-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
     }
 
     .hero h1 {
@@ -550,6 +643,7 @@ footer {
 }
 
 
+
 @media (max-width: 700px) {
 
     .navbar {
@@ -557,6 +651,12 @@ footer {
         padding: 20px;
         flex-direction: column;
         gap: 15px;
+    }
+
+    .nav-actions,
+    .navbar > div:last-child {
+        width: 100%;
+        justify-content: center;
     }
 
     .nav-links {
@@ -584,6 +684,18 @@ footer {
 
     .event-container {
         grid-template-columns: 1fr;
+    }
+
+    .featured-events {
+        padding: 60px 20px;
+    }
+
+    .featured-event-container {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-event-card > img {
+        height: 210px;
     }
 
     .about {
@@ -619,6 +731,13 @@ footer {
     .footer-content {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+
+    .hero-content,
+    .hero-image,
+    .about-image,
+    .about-content {
+        max-width: 100%;
     }
 
 }
@@ -704,6 +823,30 @@ footer {
     text-decoration: none;
     font-weight: bold;
 }
+
+.admin-login-link {
+    display: block;
+    align-self: center;
+    width: fit-content;
+    margin: 3px auto 0;
+    padding: 8px 12px;
+    color: #6c63ff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.admin-login-link:hover {
+    color: #554ee0;
+    text-decoration: underline;
+}
+
+.admin-login-link:focus-visible {
+    color: #554ee0;
+    text-decoration: underline;
+}
+
 .username {
     color: #6c63ff;
     font-weight: bold;
@@ -765,6 +908,677 @@ footer {
 
     .event-details img {
         width: 100%;
+    }
+
+    .event-details {
+        padding: 20px;
+        gap: 25px;
+    }
+
+}
+
+/* My Registrations */
+
+.my-registrations-link {
+    color: #635bff;
+    font-weight: bold;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.my-registrations-link:hover {
+    color: #4f46e5;
+}
+
+.registrations-page {
+    background: #f8faff;
+}
+
+.registrations-page .registration-grid {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.registrations-page .registration-grid .registration-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: 0;
+    min-height: 240px;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+    transition: transform .3s, box-shadow .3s;
+}
+
+.registrations-page .registration-grid .registration-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 26px #cbd5e1;
+}
+
+.registrations-page .registration-grid .registration-card > img {
+    flex: 0 0 210px;
+    width: 210px;
+    height: 240px;
+    max-width: 210px;
+    object-fit: cover;
+}
+
+.registrations-page .registration-grid .registration-info {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+}
+
+.registrations-page .registration-grid .registration-info h3 {
+    overflow-wrap: anywhere;
+}
+
+.registrations-page .registration-grid .registration-info .btn {
+    display: block;
+    width: 100%;
+    margin-top: auto;
+    padding: 11px 14px;
+    text-align: center;
+}
+
+.registration-notice {
+    max-width: 1100px;
+    margin: 0 auto 25px;
+    padding: 14px 18px;
+    color: #166534;
+    text-align: center;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 7px;
+}
+
+.registrations-page .registration-actions {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: stretch;
+    margin-top: auto;
+}
+
+.registrations-page .registration-actions .btn {
+    width: auto;
+    margin-top: 0;
+    flex: 1;
+}
+
+.remove-registration-form {
+    display: flex;
+    flex: 1;
+    margin: 0;
+}
+
+.remove-registration-button {
+    width: 100%;
+    padding: 11px 14px;
+    color: #b91c1c;
+    background: #ffffff;
+    border: 1px solid #fca5a5;
+    border-radius: 7px;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.remove-registration-button:hover {
+    color: #ffffff;
+    background: #dc2626;
+}
+
+.sold-out {
+    display: inline-block;
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.registrations-page .empty-registrations {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 55px 25px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+}
+
+.registrations-page .empty-registrations h3 {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.registrations-page .empty-registrations p {
+    margin-bottom: 25px;
+    color: #64748b;
+}
+
+.registrations-page .empty-registrations .btn {
+    display: inline-block;
+}
+
+@media (max-width: 1000px) {
+
+    .registrations-page .registration-grid {
+        gap: 20px;
+    }
+
+    .registrations-page .registration-grid .registration-card > img {
+        flex-basis: 190px;
+        width: 190px;
+        height: 230px;
+        max-width: 190px;
+    }
+
+    .registrations-page .registration-grid .registration-info {
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .registrations-page .registration-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .registrations-page .registration-grid .registration-card {
+        flex-direction: column;
+    }
+
+    .registrations-page .registration-grid .registration-card > img {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 220px;
+        max-width: none;
+    }
+
+    .registrations-page .registration-grid .registration-info {
+        padding: 22px;
+    }
+
+    .registrations-page .registration-actions {
+        flex-direction: column;
+    }
+
+    .my-registrations-link,
+    .username {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+}
+
+/* Registration messages */
+
+.registration-message-page {
+    display: flex;
+    min-height: 70vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration-message {
+    width: 100%;
+    max-width: 600px;
+    padding: 45px 30px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+}
+
+.registration-message-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: #635bff;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.registration-message.success .registration-message-icon {
+    background: #16a34a;
+}
+
+.registration-message.error .registration-message-icon {
+    background: #dc2626;
+}
+
+.registration-message.info .registration-message-icon {
+    background: #f59e0b;
+}
+
+.registration-message h2 {
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.message-box {
+    margin-bottom: 25px;
+    padding: 14px 18px;
+    border-radius: 7px;
+    line-height: 1.5;
+}
+
+.registration-message.error .message-box {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.registration-message.info .message-box {
+    color: #1e40af;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.registration-event-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 auto 25px;
+    padding: 18px;
+    color: #475569;
+    background: #f8faff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.registration-event-summary strong {
+    color: #172554;
+    font-size: 20px;
+}
+
+.registration-message-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.registration-message-actions .btn {
+    display: inline-block;
+}
+
+.registration-message-actions .btn-secondary {
+    color: #635bff;
+    background: #ffffff;
+    border: 1px solid #635bff;
+}
+
+.registration-message-actions .btn-secondary:hover {
+    color: #ffffff;
+    background: #635bff;
+}
+
+@media (max-width: 700px) {
+
+    .registration-message-page {
+        min-height: 65vh;
+        padding: 50px 20px;
+    }
+
+    .registration-message {
+        padding: 35px 20px;
+    }
+
+    .registration-message h2 {
+        font-size: 25px;
+    }
+
+    .registration-message-actions {
+        flex-direction: column;
+    }
+
+    .registration-message-actions .btn {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 16px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .nav-actions,
+    .navbar > div:last-child {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .username,
+    .my-registrations-link,
+    .nav-actions .login,
+    .nav-actions .register,
+    .navbar > div:last-child .login,
+    .navbar > div:last-child .register {
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .hero {
+        min-height: 0;
+        padding: 45px 16px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero-content > p:not(.small-title) {
+        font-size: 16px;
+    }
+
+    .hero-image img {
+        height: 230px;
+    }
+
+    .events,
+    .featured-events,
+    .about,
+    .contact {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .event-card img,
+    .featured-event-card > img {
+        height: 200px;
+    }
+
+    .event-info,
+    .event-content,
+    .featured-event-content {
+        padding: 18px;
+    }
+
+    .event-filter input {
+        min-width: 0;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    .event-details {
+        padding: 16px;
+    }
+
+    .event-details img {
+        height: 220px;
+    }
+
+    .registrations-page .registration-grid .registration-card > img {
+        height: 200px;
+    }
+
+    .registration-message {
+        padding: 30px 18px;
+    }
+
+    footer {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+}
+
+/* ================= ADMIN PANEL ================= */
+
+.admin-page {
+    min-height: 70vh;
+    padding: 80px 8%;
+    background: #f8faff;
+}
+
+.admin-form {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.admin-form label {
+    color: #172554;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5dbea;
+    border-radius: 7px;
+    font: inherit;
+    color: #172554;
+    background: #ffffff;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    outline: none;
+    border-color: #635bff;
+}
+
+.admin-form textarea {
+    resize: vertical;
+}
+
+.admin-form button,
+.admin-form-actions .btn {
+    padding: 13px 20px;
+    border: none;
+    border-radius: 7px;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.admin-form button {
+    color: #ffffff;
+    background: #635bff;
+}
+
+.admin-form button:hover {
+    background: #4f46e5;
+}
+
+.admin-form .btn-secondary {
+    color: #635bff;
+    background: #ffffff;
+    border: 1px solid #635bff;
+    text-decoration: none;
+}
+
+.admin-form .btn-secondary:hover {
+    color: #ffffff;
+    background: #635bff;
+}
+
+.admin-form-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.form-help {
+    margin-top: -8px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.admin-message {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto 25px;
+    padding: 14px 18px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.admin-message-error {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.admin-message-success {
+    color: #166534;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.admin-dashboard-page {
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+.admin-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.admin-heading h1 {
+    margin: 8px 0;
+    font-size: 38px;
+}
+
+.admin-heading p:last-child,
+.admin-action-panel p {
+    color: #64748b;
+}
+
+.admin-heading .btn,
+.admin-action-panel .btn {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.admin-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.admin-stat-card,
+.admin-action-panel {
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+}
+
+.admin-stat-card {
+    display: flex;
+    min-height: 150px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-stat-card span {
+    color: #64748b;
+    font-weight: bold;
+}
+
+.admin-stat-card strong {
+    color: #635bff;
+    font-size: 42px;
+}
+
+.admin-action-panel {
+    margin-top: 30px;
+}
+
+.admin-action-panel h2 {
+    margin-bottom: 10px;
+}
+
+.admin-action-panel p {
+    margin-bottom: 20px;
+}
+
+.admin-username {
+    color: #635bff;
+    font-weight: bold;
+}
+
+@media (max-width: 700px) {
+
+    .admin-page {
+        padding: 60px 20px;
+    }
+
+    .admin-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-heading h1 {
+        font-size: 32px;
+    }
+
+    .admin-heading .btn {
+        text-align: center;
+    }
+
+    .admin-stat-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .admin-form {
+        padding: 22px;
+    }
+
+    .admin-form-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-form-actions button,
+    .admin-form-actions .btn {
+        width: 100%;
+        text-align: center;
     }
 
 }

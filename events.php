@@ -70,6 +70,10 @@ $result = mysqli_query($conn, $sql);
                 Welcome, <?php echo htmlspecialchars($_SESSION["user_name"]); ?>
             </span>
 
+            <a href="my_registrations.php" class="my-registrations-link">
+                My Registrations
+            </a>
+
             <a href="logout.php" class="register">Logout</a>
 
         <?php } else { ?>
