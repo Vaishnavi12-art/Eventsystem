@@ -129,7 +129,7 @@ footer span {
     padding: 80px 8%;
     background:
         linear-gradient(90deg, #111936 20%, rgba(17,25,54,.65)),
-        url("images/hero.jpg");
+        url("../images/hero.jpg");
 
     background-size: cover;
     background-position: center;
@@ -229,6 +229,7 @@ footer span {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
+    align-items: stretch;
 }
 
 .event-card {
@@ -237,6 +238,8 @@ footer span {
     overflow: hidden;
     box-shadow: 0 5px 20px #dbe2f0;
     transition: .3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .event-card:hover {
@@ -252,6 +255,12 @@ footer span {
 .event-info,
 .event-content {
     padding: 20px;
+}
+
+.event-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
 
 .category {
@@ -282,6 +291,23 @@ footer span {
     font-weight: bold;
     font-size: 12px;
     margin-bottom: 10px;
+}
+
+.event-content .btn {
+    display: inline-block;
+    width: 100%;
+    margin-top: auto;
+    padding: 11px 14px;
+    background: #635bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.event-content .btn:hover {
+    background: #4f46e5;
 }
 
 .card-btn {
@@ -602,6 +628,11 @@ footer {
 .contact {
     padding: 80px 20px;
     min-height: 70vh;
+}
+
+.contact:has(.event-filter) {
+    padding: 80px 8%;
+    background: #f8faff;
 }
 
 .section-title {

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,15 +20,27 @@
     </div>
 
     <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="events.php">Events</a></li>
+        <li><a href="index.php#about">About</a></li>
+        <li><a href="index.php#contact">Contact</a></li>
     </ul>
 
-<a href="login.php" class="login">Login</a>
+<?php if (isset($_SESSION["user_name"])) { ?>
 
-<a href="register.php" class="register">Register</a>
+    <span class="username">
+        Welcome, <?php echo htmlspecialchars($_SESSION["user_name"]); ?>
+    </span>
+
+    <a href="logout.php" class="register">Logout</a>
+
+<?php } else { ?>
+
+    <a href="login.php" class="login">Login</a>
+    <a href="register.php" class="register">Register</a>
+
+<?php } ?>
+
 
 </nav>
 <!-- ================= HERO ================= -->
@@ -46,7 +61,7 @@
         </p>
 
         <div class="hero-buttons">
-            <a href="#events" class="btn">Explore Events</a>
+            <a href="events.php" class="btn">Explore Events</a>
             <a href="#about" class="btn-outline">Learn More</a>
         </div>
 
@@ -91,7 +106,9 @@
                     innovative projects.
                 </p>
 
-                <a href="#" class="card-btn">View Details</a>
+                <a href="event_details.php?id=1" class="btn">
+    View Details
+</a>
 
             </div>
 
@@ -119,7 +136,9 @@
                     and creativity.
                 </p>
 
-                <a href="#" class="card-btn">View Details</a>
+                <a href="event_details.php?id=2" class="btn">
+    View Details
+</a>
 
             </div>
 
@@ -147,7 +166,9 @@
                     new career opportunities.
                 </p>
 
-                <a href="#" class="card-btn">View Details</a>
+                <a href="event_details.php?id=3" class="btn">
+    View Details
+</a>
 
             </div>
 
@@ -175,7 +196,9 @@
                     your sporting talent.
                 </p>
 
-                <a href="#" class="card-btn">View Details</a>
+                <a href="event_details.php?id=4" class="btn">
+    View Details
+</a>
 
             </div>
 
