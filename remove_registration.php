@@ -94,7 +94,7 @@ if (!mysqli_stmt_execute($stmt) || mysqli_stmt_affected_rows($stmt) !== 1) {
 $stmt = mysqli_prepare(
     $conn,
     "UPDATE events
-     SET remaining_seats = remaining_seats + 1
+    SET remaining_seats = LEAST(remaining_seats + 1, total_seats)
      WHERE id = ?"
 );
 

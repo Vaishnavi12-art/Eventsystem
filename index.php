@@ -20,6 +20,16 @@ $featured_stmt = mysqli_prepare(
 
 mysqli_stmt_execute($featured_stmt);
 $featured_result = mysqli_stmt_get_result($featured_stmt);
+
+$upcoming_stmt = mysqli_prepare(
+    $conn,
+    "SELECT id, event_name, category, event_date, location, image, remaining_seats, description
+     FROM events
+     WHERE event_date >= CURDATE()
+     ORDER BY event_date ASC, id ASC"
+);
+mysqli_stmt_execute($upcoming_stmt);
+$upcoming_result = mysqli_stmt_get_result($upcoming_stmt);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -176,126 +186,27 @@ $featured_result = mysqli_stmt_get_result($featured_stmt);
 
 
     <div class="event-container">
-
-        <!-- Event 1 -->
-
-        <div class="event-card">
-
-            <img src="https://bcp.cdnchinhphu.vn/zoom/670_420/344443456812359680/2025/11/21/techfest-176371018792046500202-32-0-518-777-crop-17637101902001608112540.jpg" alt="Tech Fest">
-
-            <div class="event-info">
-
-                <span class="category">Technology</span>
-
-                <h3>Tech Fest 2026</h3>
-
-                <p>📅 25 August 2026</p>
-
-                <p>📍 Auditorium Hall</p>
-
-                <p>
-                    Explore technology, coding and
-                    innovative projects.
-                </p>
-
-                <a href="event_details.php?id=1" class="btn">
-    View Details
-</a>
-
-            </div>
-
-        </div>
-
-
-        <!-- Event 2 -->
-
-        <div class="event-card">
-
-            <img src="https://5.imimg.com/data5/RE/OU/GLADMIN-60885875/indian-cultural-eventz-500x500.png" alt="Cultural Festival">
-
-            <div class="event-info">
-
-                <span class="category">Cultural</span>
-
-                <h3>Cultural Festival</h3>
-
-                <p>📅 5 September 2026</p>
-
-                <p>📍 Main Ground</p>
-
-                <p>
-                    Celebrate culture, music, dance
-                    and creativity.
-                </p>
-
-                <a href="event_details.php?id=2" class="btn">
-    View Details
-</a>
-
-            </div>
-
-        </div>
-
-
-        <!-- Event 3 -->
-
-        <div class="event-card">
-
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JCWEZSTLB1ESteE3LkIKKqOCkdp1twKWWgzdCa4T92oLEMud1HJ8_A&s=10" alt="Career Seminar">
-
-            <div class="event-info">
-
-                <span class="category">Education</span>
-
-                <h3>Career Guidance Seminar</h3>
-
-                <p>📅 12 September 2026</p>
-
-                <p>📍 Seminar Hall</p>
-
-                <p>
-                    Learn from experts and discover
-                    new career opportunities.
-                </p>
-
-                <a href="event_details.php?id=3" class="btn">
-    View Details
-</a>
-
-            </div>
-
-        </div>
-
-
-        <!-- Event 4 -->
-
-        <div class="event-card">
-
-            <img src="https://www.chennaieventphotography.com/assets/image/detail/cricket-event-photography.webp" alt="Sports Championship">
-
-            <div class="event-info">
-
-                <span class="category">Sports</span>
-
-                <h3>Sports Championship</h3>
-
-                <p>📅 20 September 2026</p>
-
-                <p>📍 Sports Ground</p>
-
-                <p>
-                    Compete, connect and showcase
-                    your sporting talent.
-                </p>
-
-                <a href="event_details.php?id=4" class="btn">
-    View Details
-</a>
-
-            </div>
-
-        </div>
-
+        <?php if (mysqli_num_rows($upcoming_result) > 0) { ?>
+            <?php while ($event = mysqli_fetch_assoc($upcoming_result)) { ?>
+                <article class="event-card">
+                    <img src="images/<?php echo htmlspecialchars($event["image"]); ?>" alt="<?php echo htmlspecialchars($event["event_name"]); ?>">
+                    <div class="event-content">
+                        <span class="category"><?php echo htmlspecialchars($event["category"]); ?></span>
+                        <h3><?php echo htmlspecialchars($event["event_name"]); ?></h3>
+                        <p>📅 <?php echo htmlspecialchars(date("d M Y", strtotime($event["event_date"]))); ?></p>
+                        <p>📍 <?php echo htmlspecialchars($event["location"]); ?></p>
+                        <?php if ((int) $event["remaining_seats"] > 0) { ?>
+                            <p>🪑 <?php echo (int) $event["remaining_seats"]; ?> seats remaining</p>
+                        <?php } else { ?>
+                            <p class="featured-sold-out">Sold Out</p>
+                        <?php } ?>
+                        <a href="event_details.php?id=<?php echo (int) $event["id"]; ?>" class="btn">View Details</a>
+                    </div>
+                </article>
+            <?php } ?>
+        <?php } else { ?>
+            <p class="admin-empty-events">No upcoming events are available.</p>
+        <?php } ?>
     </div>
 
 </section>

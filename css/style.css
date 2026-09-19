@@ -1496,7 +1496,7 @@ footer {
 
 .admin-stat-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 25px;
 }
 
@@ -1529,6 +1529,304 @@ footer {
     margin-top: 30px;
 }
 
+.admin-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.admin-dashboard-panel {
+    min-width: 0;
+    margin-top: 0;
+}
+
+.upcoming-events-list,
+.recent-registrations-list,
+.event-statistics-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.upcoming-event-item,
+.recent-registration-item,
+.event-statistic-item {
+    min-width: 0;
+    padding: 18px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.upcoming-event-item:first-child,
+.recent-registration-item:first-child,
+.event-statistic-item:first-child {
+    padding-top: 0;
+}
+
+.upcoming-event-item:last-child,
+.recent-registration-item:last-child,
+.event-statistic-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.upcoming-event-item,
+.recent-registration-item,
+.event-statistic-heading,
+.event-statistic-values {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.upcoming-event-item h3,
+.recent-registration-item h3,
+.event-statistic-item h3 {
+    margin-bottom: 7px;
+    overflow-wrap: anywhere;
+    font-size: 17px;
+}
+
+.upcoming-event-item span,
+.recent-registration-item span,
+.event-statistic-item span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.event-category {
+    color: #635bff !important;
+    font-weight: bold;
+}
+
+.upcoming-event-details,
+.recent-registration-details {
+    display: flex;
+    min-width: 120px;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.upcoming-event-details strong,
+.recent-registration-details strong {
+    color: #635bff;
+    font-size: 13px;
+}
+
+.admin-statistics-panel {
+    margin-top: 30px;
+}
+
+.event-statistic-heading {
+    align-items: flex-start;
+}
+
+.event-statistic-heading strong {
+    flex: 0 0 auto;
+    color: #635bff;
+    font-size: 22px;
+}
+
+.event-statistic-values {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 8px 0 10px;
+}
+
+.event-progress-track {
+    width: 100%;
+    height: 10px;
+    overflow: hidden;
+    background: #e8e7ff;
+    border-radius: 999px;
+}
+
+.event-progress-bar {
+    display: block;
+    height: 100%;
+    max-width: 100%;
+    background: #635bff;
+    border-radius: inherit;
+}
+
+.admin-events-panel {
+    margin-top: 30px;
+    padding: 28px;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+}
+
+.admin-events-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.admin-events-heading span,
+.admin-empty-events {
+    color: #64748b;
+}
+
+.admin-events-table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-events-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-events-table th,
+.admin-events-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.admin-events-table th {
+    color: #64748b;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.admin-events-table td:first-child {
+    min-width: 180px;
+    color: #172554;
+    font-weight: bold;
+}
+
+.admin-edit-btn {
+    display: inline-block;
+    background: #6c63ff;
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-edit-btn:hover {
+    background: #574fd6;
+    text-decoration: none;
+}
+
+.admin-delete-btn {
+    display: inline-block;
+    background: #dc3545;
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+    appearance: none;
+}
+
+.admin-delete-btn:hover {
+    background: #b02a37;
+    color: white;
+    text-decoration: none;
+}
+
+.admin-events-table form {
+    margin: 0;
+}
+
+.admin-registrations-table td {
+    overflow-wrap: anywhere;
+}
+
+.admin-confirmation-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-confirmation-panel {
+    width: 100%;
+    max-width: 680px;
+    padding: 36px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px #dbe2f0;
+}
+
+.admin-confirmation-panel h1 {
+    margin: 8px 0 18px;
+    font-size: 32px;
+}
+
+.admin-confirmation-message {
+    color: #475569;
+    line-height: 1.7;
+}
+
+.admin-registration-summary {
+    margin: 25px 0;
+    padding: 18px 22px;
+    color: #475569;
+    text-align: left;
+    background: #f8faff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.admin-registration-summary p {
+    margin: 8px 0;
+}
+
+.admin-registration-summary strong {
+    color: #172554;
+}
+
+.admin-confirmation-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.admin-confirmation-actions form {
+    margin: 0;
+}
+
+.admin-confirmation-actions .btn-secondary {
+    color: #635bff;
+    background: #ffffff;
+    border: 1px solid #635bff;
+}
+
+.admin-confirmation-actions .btn-secondary:hover {
+    color: #ffffff;
+    background: #635bff;
+}
+
+.admin-registrations-page .admin-message {
+    white-space: pre-line;
+}
+
+.current-event-image img {
+    display: block;
+    width: 180px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 7px;
+}
+
 .admin-action-panel h2 {
     margin-bottom: 10px;
 }
@@ -1537,9 +1835,97 @@ footer {
     margin-bottom: 20px;
 }
 
+.admin-action-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.admin-action-links .btn-secondary,
+.admin-users-page .btn-secondary {
+    color: #635bff;
+    background: #ffffff;
+    border: 1px solid #635bff;
+}
+
+.admin-action-links .btn-secondary:hover,
+.admin-users-page .btn-secondary:hover {
+    color: #ffffff;
+    background: #635bff;
+}
+
+.admin-search-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.admin-search-form label {
+    color: #172554;
+    font-weight: bold;
+}
+
+.admin-search-input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 14px;
+    border: 1px solid #d5dbea;
+    border-radius: 7px;
+    font: inherit;
+    color: #172554;
+    background: #ffffff;
+}
+
+.admin-search-input:focus {
+    outline: none;
+    border-color: #635bff;
+}
+
+.admin-search-button,
+.admin-clear-search {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 7px;
+    font: inherit;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.admin-search-button {
+    color: #ffffff;
+    background: #635bff;
+    border: 1px solid #635bff;
+    cursor: pointer;
+}
+
+.admin-search-button:hover {
+    background: #4f46e5;
+    border-color: #4f46e5;
+}
+
+.admin-clear-search {
+    color: #635bff;
+    background: #ffffff;
+    border: 1px solid #635bff;
+}
+
+.admin-clear-search:hover {
+    color: #ffffff;
+    background: #635bff;
+}
+
 .admin-username {
     color: #635bff;
     font-weight: bold;
+}
+
+@media (max-width: 1000px) {
+
+    .admin-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
 }
 
 @media (max-width: 700px) {
@@ -1561,7 +1947,34 @@ footer {
         text-align: center;
     }
 
+    .admin-action-links {
+        flex-direction: column;
+    }
+
+    .admin-action-links .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .admin-search-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-search-input,
+    .admin-search-button,
+    .admin-clear-search {
+        width: 100%;
+        min-width: 0;
+        text-align: center;
+    }
+
     .admin-stat-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .admin-dashboard-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
@@ -1579,6 +1992,92 @@ footer {
     .admin-form-actions .btn {
         width: 100%;
         text-align: center;
+    }
+
+    .admin-confirmation-panel {
+        padding: 26px 20px;
+    }
+
+    .admin-confirmation-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-confirmation-actions form,
+    .admin-confirmation-actions .btn {
+        width: 100%;
+    }
+
+    .admin-confirmation-actions .admin-delete-btn {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .admin-events-panel {
+        padding: 22px;
+    }
+
+    .upcoming-event-item,
+    .recent-registration-item {
+        flex-direction: column;
+    }
+
+    .upcoming-event-details,
+    .recent-registration-details {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .event-statistic-heading {
+        gap: 10px;
+    }
+
+    .admin-events-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-events-table thead {
+        display: none;
+    }
+
+    .admin-events-table,
+    .admin-events-table tbody,
+    .admin-events-table tr,
+    .admin-events-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .admin-events-table tr {
+        padding: 12px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .admin-events-table td {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 8px 0;
+        border-bottom: none;
+        text-align: right;
+    }
+
+    .admin-events-table td::before {
+        color: #64748b;
+        content: attr(data-label);
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .admin-events-table td:first-child {
+        min-width: 0;
+    }
+
+    .admin-events-table td form,
+    .admin-events-table td .admin-edit-btn,
+    .admin-events-table td .admin-delete-btn {
+        flex: 0 0 auto;
     }
 
 }

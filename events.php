@@ -3,31 +3,26 @@
 session_start();
 include "db.php";
 
-$search = "";
-$category = "";
+$search = trim($_GET["search"] ?? "");
+$category = trim($_GET["category"] ?? "All");
+$categories = ["Technology", "Cultural", "Education", "Sports"];
 
-if (isset($_GET["search"])) {
-    $search = trim($_GET["search"]);
+if ($category !== "All" && !in_array($category, $categories, true)) {
+    $category = "All";
 }
 
-if (isset($_GET["category"])) {
-    $category = $_GET["category"];
-}
-
-$sql = "SELECT * FROM events WHERE 1=1";
-
-if ($search != "") {
-    $sql .= " AND event_name LIKE '%" . mysqli_real_escape_string($conn, $search) . "%'";
-}
-
-if ($category != "" && $category != "All") {
-    $category = mysqli_real_escape_string($conn, $category);
-    $sql .= " AND category = '$category'";
-}
-
-$sql .= " ORDER BY event_date";
-
-$result = mysqli_query($conn, $sql);
+$search_pattern = "%" . $search . "%";
+$stmt = mysqli_prepare(
+    $conn,
+    "SELECT id, event_name, category, event_date, location, remaining_seats, image
+     FROM events
+     WHERE (? = '' OR event_name LIKE ?)
+       AND (? = 'All' OR category = ?)
+     ORDER BY event_date ASC, id ASC"
+);
+mysqli_stmt_bind_param($stmt, "ssss", $search, $search_pattern, $category, $category);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
 ?>
 

@@ -3,12 +3,12 @@
 session_start();
 include "db.php";
 
-if (!isset($_GET["id"])) {
-    header("Location: events.php");
+$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+
+if (!$id || $id <= 0) {
+    echo "Event not found.";
     exit();
 }
-
-$id = intval($_GET["id"]);
 
 $stmt = mysqli_prepare(
     $conn,

@@ -4,29 +4,37 @@ include "db.php";
 
 $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $mobile = $_POST["mobile"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"];
+    $name = trim($_POST["name"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $mobile = trim($_POST["mobile"] ?? "");
+    $password = $_POST["password"] ?? "";
+    $confirm_password = $_POST["confirm_password"] ?? "";
 
-    if ($password != $confirm_password) {
+    if ($name === "" || $email === "" || $mobile === "" || $password === "") {
+        $message = "Please complete all required fields.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = "Please enter a valid email address.";
+    } elseif ($password != $confirm_password) {
 
         $message = "Passwords do not match!";
 
     } else {
 
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users (name, email, mobile, password)
-                VALUES ('$name', '$email', '$mobile', '$password')";
+        $stmt = mysqli_prepare(
+            $conn,
+            "INSERT INTO users (name, email, mobile, password)
+             VALUES (?, ?, ?, ?)"
+        );
+        mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $mobile, $hashed_password);
 
-        if (mysqli_query($conn, $sql)) {
+        if (mysqli_stmt_execute($stmt)) {
             $message = "Registration successful!";
         } else {
-            $message = "Error: " . mysqli_error($conn);
+            $message = "Registration could not be completed. Please try again.";
         }
     }
 }
@@ -72,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php if ($message != "") { ?>
         <p style="text-align:center;">
-            <?php echo $message; ?>
+            <?php echo htmlspecialchars($message); ?>
         </p>
     <?php } ?>
 
